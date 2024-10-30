@@ -24,6 +24,9 @@ Code \
 ### Initialisation du projet
 Pour initialiser un projet, rendez vous sur https://dnum-workspace.pcv.saagie.io, sélectionnez l'environnement souhaité et créez un nouveau projet. 
 
+### Initialisation de la CI
+/à compléter/
+
 ### Lancement de la CI
 Dans `saagie/envs/dev.json`, saisissez le `platform_id` correspondant à l'environnement et le `project_id` créé dans l'UI Saagie. 
 
