@@ -21,6 +21,11 @@ Code \
 
 ## Guetting started
 
+### Prérequis
+* Disposer d'un compte sur https://dnum-workspace.pcv.saagie.io
+* Avoir créé un projet sur https://dnum-workspace.pcv.saagie.io
+* Disposer d'un compte Github et d'un accès en écriture sur https://github.com/DNUM-SocialGouv/
+
 ### Initialisation du projet
 Pour initialiser un projet, rendez vous sur https://dnum-workspace.pcv.saagie.io, sélectionnez l'environnement souhaité et créez un nouveau projet. 
 
