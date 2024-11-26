@@ -25,20 +25,22 @@ Code \
 * Disposer d'un compte sur https://dnum-workspace.pcv.saagie.io
 * Avoir créé un projet sur https://dnum-workspace.pcv.saagie.io
 * Disposer d'un compte Github et d'un accès en écriture sur https://github.com/DNUM-SocialGouv/
+* Avoir installé les librairies de `cicd_saagie_tool/requirements.txt`
 
 ### Initialisation du projet
 Pour initialiser un projet, rendez vous sur https://dnum-workspace.pcv.saagie.io, sélectionnez l'environnement souhaité et créez un nouveau projet. 
 
 ### Initialisation de la CI
-/à compléter/
-
-### Lancement de la CI
-Dans `saagie/envs/dev.json`, saisissez le `platform_id` correspondant à l'environnement et le `project_id` créé dans l'UI Saagie. 
+1) Créer un fork du repository SocialDataHub, règle de nommage : "SocialDataHub_[NomDuProjet]"
+2) Configurer les secrets dans `Settings` > `Actions secrets and variables`
+3) Cloner le repository ainsi créé
+4) Dans `saagie/envs/dev.json`, saisir le `platform_id` correspondant à l'environnement et le `project_id` ainsi que le `project_name` créé dans l'UI Saagie. 
 
 ### Création d'un job
-Sur https://dnum-workspace.pcv.saagie.io, créez un nouveau job. Dans `saagie/jobs/[job_name].json`, saisissez le `job_id` correspondant au job créé : 
+1) Sur https://dnum-workspace.pcv.saagie.io, créer un nouveau job. Convention de nommage : execute_nom_du_job càd verbe + objet, ex : print_hello_world
+2) Dans `saagie/jobs/[job_name].json`, saisir le `job_id` correspondant au job créé : 
 * `id` : id propre au fichier yaml. Bonne pratique : copiez l'id du job.
-* `next_nodes` : id du éjob à exécuter après si nécessaire.
+* `next_nodes` : id du job à exécuter après si nécessaire.
 Sur la plateforme, chaque job est exécuté dans un conteneur ce qui signifie que le stockage doit être effectué sur les services partagés de la plateforme pour être résilient : S3 ou PostreSQL. 
 
 ### Bonne pratique de gestion des erreurs
