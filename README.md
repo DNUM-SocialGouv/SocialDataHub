@@ -1,27 +1,30 @@
-# SocialDataHub
+# Social Data Hub
 
 Le Social Data Hub (SDH) est la plateforme data de la Direction du Numérique des Ministères sociaux. 
-La plateforme repose sur Saagie [https://www.saagie.com/fr/] et est hébergée sur un cloud public. 
+La plateforme repose sur [Saagie](https://www.saagie.com/fr/) et est hébergée sur un cloud public. 
 
 ## Table des matières
 
-[Manifeste](#Manifeste)
-[Fonctionnalités](#Fonctionnalités)
-[Roadmap](#Roadmap)
-[Standards](#Standards)
-[Architecture](#Architecture)
-[Guetting started](#Guetting started)
-[Contacts](#Contacts)
+1. [Manifeste](#Manifeste)
+2. [Fonctionnalités](#Fonctionnalités)
+3. [Roadmap](#Roadmap)
+4. [Standards](#Standards)
+5. [Architecture](#Architecture)
+6. [Guetting started](#guetting-started)
+7. [Contacts](#Contacts)
 
 ## Manifeste
 
 Le SDH a été lancé afin d'accélérer, fiabiliser et optimiser la fabrication de produits de données en :
-* réduisant les irritants techniques : infrastructure, DevOps, CI/CD ;
-* augmentant la couche d'abstraction pour les développeurs et les product managers.
-Ainsi, les choix
-* réutilisation : la plateforme doit être composée de briques permettant leur réutilisation dans un autre contexte technique et fonctionnel. 
-* interopérabilité : que ce soit pour l'ingestion, la transformation ou l'exposition des données, la plateforme a pour vocation de maintenir sa compatibilité vers un maximum de types et formats de données différents. 
-* accessibilité : la plateforme s'impose une gestion de la documentation, des meta données et des standards de développement permettant une accessibilité réelle aux données. 
+* **réduisant les irritants techniques** : infrastructure, DevOps, CI/CD ;
+* **augmentant la couche d'abstraction** pour les développeurs et les product managers ;
+* **diminuant les coûts** grâce à la mutualisation de l'infrastructure et de la stack.
+
+Ainsi, la construction de cette plateforme s'articule autour de 3 valeurs coeur :
+
+* **réutilisation** : la plateforme doit être composée de briques permettant leur réutilisation dans un autre contexte technique et fonctionnel. 
+* **interopérabilité** : que ce soit pour l'ingestion, la transformation ou l'exposition des données, la plateforme a pour vocation de maintenir sa compatibilité vers un maximum de types et formats de données différents. 
+* **accessibilité** : la plateforme s'impose une gestion de la documentation, des meta données et des standards de développement permettant une accessibilité réelle aux données. 
 
 
 ## Fonctionnalités
