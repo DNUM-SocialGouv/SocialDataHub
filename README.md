@@ -4,13 +4,14 @@ Le Social Data Hub (SDH) est la plateforme data de la Direction du Numérique de
 La plateforme repose sur Saagie [https://www.saagie.com/fr/] et est hébergée sur un cloud public. 
 
 ## Table des matières
-<Link to="#Manifeste">Manifeste</Link>
-<Link to="#Fonctionnalités">Fonctionnalités</Link>
-<Link to="#Roadmap">Roadmap</Link>
-<Link to="#Standards">Standards</Link>
-<Link to="#Architecture">Architecture</Link>
-<Link to="#Guetting started">Guetting started</Link>
-<Link to="#Contacts">Contacts</Link>
+
+[Manifeste](#Manifeste)
+[Fonctionnalités](#Fonctionnalités)
+[Roadmap](#Roadmap)
+[Standards](#Standards)
+[Architecture](#Architecture)
+[Guetting started](#Guetting started)
+[Contacts](#Contacts)
 
 ## Manifeste
 
