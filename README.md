@@ -1,6 +1,63 @@
 # SocialDataHub
 
-## Architecture d'un projet SocialDataHub
+Le Social Data Hub (SDH) est la plateforme data de la Direction du Numérique des Ministères sociaux. 
+La plateforme repose sur Saagie [https://www.saagie.com/fr/] et est hébergée sur un cloud public. 
+
+## Table des matières
+<Link to="#Manifeste">Manifeste</Link>
+<Link to="#Fonctionnalités">Fonctionnalités</Link>
+<Link to="#Roadmap">Roadmap</Link>
+<Link to="#Standards">Standards</Link>
+<Link to="#Architecture">Architecture</Link>
+<Link to="#Guetting started">Guetting started</Link>
+<Link to="#Contacts">Contacts</Link>
+
+## Manifeste
+
+Le SDH a été lancé afin d'accélérer, fiabiliser et optimiser la fabrication de produits de données en :
+* réduisant les irritants techniques : infrastructure, DevOps, CI/CD ;
+* augmentant la couche d'abstraction pour les développeurs et les product managers.
+Ainsi, les choix
+* réutilisation : la plateforme doit être composée de briques permettant leur réutilisation dans un autre contexte technique et fonctionnel. 
+* interopérabilité : que ce soit pour l'ingestion, la transformation ou l'exposition des données, la plateforme a pour vocation de maintenir sa compatibilité vers un maximum de types et formats de données différents. 
+* accessibilité : la plateforme s'impose une gestion de la documentation, des meta données et des standards de développement permettant une accessibilité réelle aux données. 
+
+
+## Fonctionnalités
+
+* Orchestration
+* CI/CD
+* ingestion
+* Transformation
+* Exposition
+
+## Roadmap
+
+* Anonymisation
+* Ingestion et exposition : mise à disposition des utilisateur d'une UI pour télécharger / déposer des fichiers
+* Pipeline IA
+
+## Standards
+
+### Code
+
+### Commit
+
+### Environnement 
+
+### Logging
+
+### Erreurs 
+
+### Tests
+
+### Documentation 
+
+### Meta données 
+
+## Architecture
+
+### Architecture d'un projet SocialDataHub
 
 .github \
 cicd_saagie_tool \
@@ -14,10 +71,9 @@ Saagie \
 |_____ datamart.json \
 |_____ export.json \
 Code \
-|_ input_verification \
-|_ datawarehouse \
-|_ datamart \
-|_ export \
+|_ Ingestion \
+|_ Transformation \
+|_ Export 
 
 ## Guetting started
 
@@ -55,3 +111,5 @@ Il n'y a pas de serveur SMTP sur la plateforme. En cas d'erreur, la seule possib
 Il existe 2 types de settings : 
 * `variables.json` : paramètres communs aux jobs, ce fichier étant situé à la racine du projet, il s'agit des paramètres sur les éléments résilients.
 * `[nom_du_parametrage].json` : paramètres propres à chaque job. 
+
+## Contacts
