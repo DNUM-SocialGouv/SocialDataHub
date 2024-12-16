@@ -11,7 +11,8 @@ La plateforme repose sur [Saagie](https://www.saagie.com/fr/) et est hébergée 
 4. [Standards](#Standards)
 5. [Architecture](#Architecture)
 6. [Guetting started](#guetting-started)
-7. [Contacts](#Contacts)
+7. [Utilisation de la chaine CI/CD](#Utilisation-de-la-chaine-CI/CD)
+8. [Contacts](#Contacts)
 
 ## Manifeste
 
