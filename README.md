@@ -29,22 +29,19 @@ Ainsi, la construction de cette plateforme s'articule autour de 3 valeurs coeur 
 
 ## Fonctionnalités
 
-| Fonctionnalité    | Technologie     | 
-| :---------------- | :-------------- |
-| Orchestration     | Saagie          |
-| CI/CD             | SaagieApi       |
-| Stockage          | PostgreSQL      |
-| Ingestion         | Pandas / S3     |    
-| Transformation    | DBT / DuckDB    |
-| Exposition        | MinIO           |
+| Fonctionnalité          | Technologie                 | 
+| :---------------------- | :-------------------------- |
+| Orchestration           | Saagie                      |
+| CI/CD                   | SaagieApi                   |
+| Stockage                | PostgreSQL                  |
+| Layer Ingestion         | Pandas > S3                 |    
+| Layer Transformation    | DBT > DuckDB                |
+| Layer Exposition        | Datamart PostgreSQL - MinIO |
 
 
 ## Roadmap
 
 [En construction]
-* Anonymisation
-* Ingestion et exposition : mise à disposition des utilisateur d'une UI pour télécharger / déposer des fichiers
-* Pipeline IA
 
 ## Standards
 
@@ -63,7 +60,7 @@ Ainsi, la construction de cette plateforme s'articule autour de 3 valeurs coeur 
      total = (first_variable
            + second_variable
            - third_variable)
-- **Identation** :
+- **Indentation** :
     * L'indentation se fait par bloc de 4 espaces
     * Ne jamais mélanger tabulations et espaces
     * 2 lignes entre fonctions
@@ -103,40 +100,78 @@ Ainsi, la construction de cette plateforme s'articule autour de 3 valeurs coeur 
             int: The sum of the integers.
         """
         return a + b
-- **Exceptions** : Les exceptions spécifiées explicitement sont préférées : 
-    ```python
-    try:
-        result = 1 / 0
-    except ZeroDivisionError:
-        print("Division par zéro.")
-**Typage explicite** : nous utilisons le module `typing` pour tous les arguments et retours de fonctions.
+**Typage explicite** : nous utilisons le module `typing` pour tous les arguments et retours de fonction :
 ```python
-from typing import List
-
-def process_data(data: List[str]) -> List[str]:
-    return [d.upper() for d in data]
-
+def process_data(data: pd.DataFrame) -> pd.DataFrame:
 ```
-### Commit
-aaa
+
+### Design
+* Les fonctionnalités sont développées de manière modulables et avec pour objectif d'être réutilisables. C'est pourquoi, **chaque fonctionnalité est packagée** afin d'être importée dans n'importe quel projet sans devoir être réécrite. Vous pouvez retrouver l'ensemble des packages [ici](https://github.com/DNUM-SocialGouv/sdh-pyetl)
+* Conformément à la logique objet, l'utilisation des `class` est à privilégier
+* Chaque fonction doit être limitée à 1 usage
 
 ### Environnement 
+Le SDH utilise [Poetry](https://python-poetry.org/) pour gérer les environnements virtuels. 
+* Pour installer poetry : `pip install poetry`
+* Un envrionnement virtuel est créé pour chaque projet. 
+* Les packages et versions installées pour chaque projet sont stockés dans `poetry.lock` à la racine du répertoire du projet.
+* Pour installer les dépendances à partir de ce fichier, voici la commande : `poetry install`.
+
+### Commit
+Tout commit doit être formalisé ainsi `[<type>] <module> : <Descriptif court>`
+* **[feat]** pour l'ajout d'une fonctionnalité
+* **[fix]** pour la correction d'une anomalie
+* **[docs]** pour la modification de la docuemntation
+* **[refactor]** pour le refacto du code
+* **[test]** pour l'ajout ou la modification des tests
+* **[ci]** pour la modification de la CI
 
 ### Logging
 
+Nous utilisons `logging` pour administrer les logs : 
+```python
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+logger.info("Processing started.")s
+```
+
 ### Erreurs 
+Les exceptions spécifiées explicitement sont préférées : 
+```python
+try:
+    result = 1 / 0
+except ZeroDivisionError:
+    print("Division par zéro.")
+```
 
 ### Tests
+Nous imposons un taux de couverture de tests unitaires >= 80%.
+* Le framework [pytest](https://docs.pytest.org/en/stable/) est utilisé [décorateurs standards à décrire]
+* Avec la librairie [great_expectations](https://github.com/great-expectations/great_expectations), les données doivent être validées au niveau de chaque layer : schéma, type, règle métier [standards à compléter]
 
 ### Sécurité
 
+Toutes les informations sensibles doivent être stockées dans des variables d'environnement. 
+* Sur chaque repository github, il faut veiller à configuer un secret par variable
+* [chiffrement des variables à prévoir avec cryptography ?]
+
 ### Documentation 
+
+Chaque projet fait l'objet d'une documentation : 
+* un `README.md` avec a minima :
+    * Une courte description du projet et de ses fonctionnalités
+    * un tutoriel d'installation
+    * une description de l'organisation du projet
+* [compléter avec la doc métier : specs, MCD]
 
 ### Meta données 
 
+[à construire]
+
 ## Architecture
 
-### Architecture d'un projet SocialDataHub
+### Architecture d'un projet Social Data Hub
 
 .github \
 cicd_saagie_tool \
@@ -145,9 +180,8 @@ Saagie \
 |_____ dev.json \
 |_____ prod.json \
 |_ jobs \
-|_____ input_verification.json \
-|_____ datawarehouse.json \
-|_____ datamart.json \
+|_____ ingestion.json \
+|_____ transformation.json \
 |_____ export.json \
 Code \
 |_ Ingestion \
@@ -178,17 +212,28 @@ Pour initialiser un projet, rendez vous sur https://dnum-workspace.pcv.saagie.io
 * `next_nodes` : id du job à exécuter après si nécessaire.
 Sur la plateforme, chaque job est exécuté dans un conteneur ce qui signifie que le stockage doit être effectué sur les services partagés de la plateforme pour être résilient : S3 ou PostreSQL. 
 
+### Création d'un pipeline
+1) Sur https://dnum-workspace.pcv.saagie.io, créer un nouveau pipeline. 
+2) Dans `saagie/pipelines/[pipeline_name].json`, saisir le `pipeline_id` correspondant au job créé : 
+* `id` : id propre au fichier yaml. Bonne pratique : copiez l'id du pipeline. 
+
 ### Bonne pratique de gestion des erreurs
 Il n'y a pas de serveur SMTP sur la plateforme. En cas d'erreur, la seule possibilité d'envoyer un email de notification est de passer par la fonctionnalité ad hoc du produit Saagie. Cette fonctionnalité est liée au job et ne s'applique que lorsque le job entier est en erreur. 
 * Stocker les erreur dans une liste `err_list = []`
-* ```if len(error_list) != 0:
+    ```python
+    if len(error_list) != 0:
         for error in error_list:
             print(error)
-        raise Exception("Errors during the processing of the files")```
-
+        raise Exception("Errors during the processing of the files")
 ### Bonne pratique de gestion des settings
 Il existe 2 types de settings : 
 * `variables.json` : paramètres communs aux jobs, ce fichier étant situé à la racine du projet, il s'agit des paramètres sur les éléments résilients.
 * `[nom_du_parametrage].json` : paramètres propres à chaque job. 
 
+## Utilisation de la chaine CI/CD
+
+Nous utilisons l'API Saagie afin d'automatiser la chaine CI/CD. L'usage de l'API est documenté [ici](https://saagieapi.readthedocs.io/en/latest/). 
+
 ## Contacts
+
+Béatrice DANIEL, tech lead data : beatrice.daniel@sg.social.gouv.fr
