@@ -29,14 +29,19 @@ Ainsi, la construction de cette plateforme s'articule autour de 3 valeurs coeur 
 
 ## Fonctionnalités
 
-* Orchestration
-* CI/CD
-* ingestion
-* Transformation
-* Exposition
+| Fonctionnalité    | Technologie     | 
+| :---------------- | :-------------- |
+| Orchestration     | Saagie          |
+| CI/CD             | SaagieApi       |
+| Stockage          | PostgreSQL      |
+| Ingestion         | Pandas / S3     |    
+| Transformation    | DBT / DuckDB    |
+| Exposition        | MinIO           |
+
 
 ## Roadmap
 
+[En construction]
 * Anonymisation
 * Ingestion et exposition : mise à disposition des utilisateur d'une UI pour télécharger / déposer des fichiers
 * Pipeline IA
@@ -45,7 +50,75 @@ Ainsi, la construction de cette plateforme s'articule autour de 3 valeurs coeur 
 
 ### Code
 
+ Le SDH respecte les conventions de style Python **PEP 8**. Les outils suivants peuvent être utilisés afin de faciliter le respect de ces normes : [flake8](https://flake8.pycqa.org) ou [black](https://github.com/psf/black). 
+- **Nommage** :
+    * **Variables et fonctions** : snake_case (ex. : process_data, user_name).
+    * **Classes** : CamelCase (ex. : DataProcessor, UserManager).
+    * **Constantes** : UPPER_CASE_WITH_UNDERSCORES (ex. : MAX_RETRIES, API_KEY).
+    * **Arguments privés ou protégés** : Préfixez avec un underscore _ (ex. : _internal_var).
+- **Longueur des lignes** :
+    * limitée à 79 caractères et 72 pour les commentaires
+    * Pour cela, nous utilisons la fonctionnalité de continuation implicite ou explicite de Python et SQL. Ex : 
+     ```python
+     total = (first_variable
+           + second_variable
+           - third_variable)
+- **Identation** :
+    * L'indentation se fait par bloc de 4 espaces
+    * Ne jamais mélanger tabulations et espaces
+    * 2 lignes entre fonctions
+    * Les blocs conditionnels doivent être bien alignés :
+    ```python
+    if condition1:
+        do_something()
+    elif condition2:
+        do_something_else()
+    else:
+        handle_default_case()
+- **Espacement** :
+    * Un espace autour des opérateurs ` y = ax + b `, `if x == 1:`
+    * Pas d'espace autour des parenthèses/brackets `my_list[0]`, `func(arg)`.
+- **Import** :
+    * L'import se fait toujours en haut des fichiers
+    * L'import se fait dans l'ordre suivant : bibliothèques standards > bibliothèques externes > modules internes
+    * L'import explicite est préféré aux imports globaux : 
+    ```python
+    # Correct
+    from math import sqrt
+    # A éviter
+    from math import *
+- **Commentaires et docstrings** :
+    * Commentaires : les commentaires # sont placés sur une ligne séparée ou infinie si courts
+    * Docstrings : Les modules, classes et fonctions sont documentées entre """ avec un style de type NumPy :
+    ```python
+    def add_numbers(a: int, b: int) -> int:
+        """
+        Add two integers and return the result.
+
+        Args:
+            a (int): The first integer.
+            b (int): The second integer.
+
+        Returns:
+            int: The sum of the integers.
+        """
+        return a + b
+- **Exceptions** : Les exceptions spécifiées explicitement sont préférées : 
+    ```python
+    try:
+        result = 1 / 0
+    except ZeroDivisionError:
+        print("Division par zéro.")
+**Typage explicite** : nous utilisons le module `typing` pour tous les arguments et retours de fonctions.
+```python
+from typing import List
+
+def process_data(data: List[str]) -> List[str]:
+    return [d.upper() for d in data]
+
+```
 ### Commit
+aaa
 
 ### Environnement 
 
@@ -54,6 +127,8 @@ Ainsi, la construction de cette plateforme s'articule autour de 3 valeurs coeur 
 ### Erreurs 
 
 ### Tests
+
+### Sécurité
 
 ### Documentation 
 
