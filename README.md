@@ -208,14 +208,18 @@ Pour initialiser un projet :
     - `$SAAGIE_USER`
 
 ### Initialisation de la CI
-1) Créer un fork du repository SocialDataHub, règle de nommage : "SocialDataHub_[NomDuProjet]"
-2) Configurer les secrets dans `Settings` > `Actions secrets and variables`: 
+1) Initialiser le repository git localement :
+* Cloner le repository template de Saagie: https://github.com/saagie/template_cicd/tree/feat/action%40v0.0.1
+* Réinitialiser le repository git `git rm`
+* Renommer le repository, règle de nommage : "SocialDataHub_[NomDuProjet]"
+2) Initialiser le repository sur https://github.com/DNUM-SocialGouv/
+3) Configurer les secrets dans `Settings` > `Actions secrets and variables`: 
     - `$SAAGIE_PWD`
     - `$SAAGIE_REALM`
     - `$SAAGIE_URL`
     - `$SAAGIE_USER`
-3) Cloner le repository ainsi créé
-4) Dans `saagie/envs/dev.json`, saisir le `platform_id` correspondant à l'environnement et le `project_id` ainsi que le `project_name` créé dans l'UI Saagie. 
+4) Dans `saagie/envs/dev.json`, saisir le `platform_id` correspondant à l'environnement et le `project_id` ainsi que le `project_name` créé dans l'UI Saagie.
+5) Il est conseillé d'utiliser pyenv et poetry pour gérer les dépendances et leur cycle de vie, pour cela, se reporter au paragrpahe portant sur les environnements virtuels plus bas. 
 
 ### Création d'un job
 1) Sur https://dnum-workspace.pcv.saagie.io, créer un nouveau job. Convention de nommage : execute_nom_du_job càd verbe + objet, ex : print_hello_world
@@ -266,7 +270,15 @@ Les postes Ministères sociaux ne disposant pas des droits d'admin, voici un gui
 - **git**
   - Comme pour Python, il faut installer git seulement pour son user
   - À chaque session de command line, il faut ajouter le path ainsi : ` set PATH=%PATH%;C:\Users\beatrice.daniel\AppData\Local\Programs\Git\cmd`
+- **Environnement virtuel**
+Pour gérer au mieux les dépendances, il est conseillé de :
+  - utiliser pyenv pour gérer les versions de Pythhon avec `pyenv install [version_de_python]` pour installer une version spcifique ou `pyenv local [version_de_python]` pour utiliser une version spécifique de Python
+  - initialiser l'environnement Poetry avec `poetry init` dans le repository du projet
+  - configurer Poetry pour utiliser la version Python gérée par pyenv `poetry env use [version_de_python]`
+  - activer l'environnement virtuel avec `poetry shell`
+  - installer les dépendances nécessaires à la CICD Saagie avec `pip install -r cicd_saagie_tool/requirements.txt`, attention elles ne seront pas référencées dans votre `pyproject.toml` ni dans votre `poetry.lock`. Cela signifie que Poetry ne saura pas que ces dépendances font partie de votre projet et ne les gérera pas en cas de mise à jour ou de partage avec d’autres développeurs
 
+ 
 ## Contacts
 
 Béatrice DANIEL, tech lead data : beatrice.daniel@sg.social.gouv.fr
