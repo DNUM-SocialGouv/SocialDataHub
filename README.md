@@ -12,7 +12,8 @@ La plateforme repose sur [Saagie](https://www.saagie.com/fr/) et est hébergée 
 5. [Architecture](#Architecture)
 6. [Guetting started](#guetting-started)
 7. [Utilisation de la chaine CI/CD](#Utilisation-de-la-chaine-CI/CD)
-8. [Contacts](#Contacts)
+8. [Développement en local](#)
+9. [Contacts](#Contacts)
 
 ## Manifeste
 
@@ -35,7 +36,7 @@ Ainsi, la construction de cette plateforme s'articule autour de 3 valeurs coeur 
 | Orchestration           | Saagie                      |
 | CI/CD                   | SaagieApi                   |
 | Stockage                | PostgreSQL                  |
-| Layer Ingestion         | Pandas > S3                 |    
+| Layer Ingestion         | DLT > S3                    |    
 | Layer Transformation    | DBT > DuckDB                |
 | Layer Exposition        | Datamart PostgreSQL - MinIO |
 
@@ -198,11 +199,21 @@ Code \
 * Avoir installé les librairies de `cicd_saagie_tool/requirements.txt`
 
 ### Initialisation du projet
-Pour initialiser un projet, rendez vous sur https://dnum-workspace.pcv.saagie.io, sélectionnez l'environnement souhaité et créez un nouveau projet. 
+Pour initialiser un projet : 
+1) Se rendre sur https://dnum-workspace.pcv.saagie.io, sélectionnez l'environnement souhaité et créez un nouveau projet
+2) Créer les variables d'environnement pour la CI/CD : 
+    - `$SAAGIE_PWD`
+    - `$SAAGIE_REALM`
+    - `$SAAGIE_URL`
+    - `$SAAGIE_USER`
 
 ### Initialisation de la CI
 1) Créer un fork du repository SocialDataHub, règle de nommage : "SocialDataHub_[NomDuProjet]"
-2) Configurer les secrets dans `Settings` > `Actions secrets and variables`
+2) Configurer les secrets dans `Settings` > `Actions secrets and variables`: 
+    - `$SAAGIE_PWD`
+    - `$SAAGIE_REALM`
+    - `$SAAGIE_URL`
+    - `$SAAGIE_USER`
 3) Cloner le repository ainsi créé
 4) Dans `saagie/envs/dev.json`, saisir le `platform_id` correspondant à l'environnement et le `project_id` ainsi que le `project_name` créé dans l'UI Saagie. 
 
@@ -226,6 +237,7 @@ Il n'y a pas de serveur SMTP sur la plateforme. En cas d'erreur, la seule possib
         for error in error_list:
             print(error)
         raise Exception("Errors during the processing of the files")
+
 ### Bonne pratique de gestion des settings
 Il existe 2 types de settings : 
 * `variables.json` : paramètres communs aux jobs, ce fichier étant situé à la racine du projet, il s'agit des paramètres sur les éléments résilients.
@@ -234,6 +246,26 @@ Il existe 2 types de settings :
 ## Utilisation de la chaine CI/CD
 
 Nous utilisons l'API Saagie afin d'automatiser la chaine CI/CD. L'usage de l'API est documenté [ici](https://saagieapi.readthedocs.io/en/latest/). 
+
+## Développement en local
+
+Les postes Ministères sociaux ne disposant pas des droits d'admin, voici un guide d'installation des outils les plus utiles pour développer en local. 
+- **Python**
+    - Télécharger Python sur le site officiel, version "avec exécutable"
+    - Choisir l'installation custom
+    - Décocher toutes les options "for all users"
+    - À chaque utilisation de python, par ex 3.11 ici, il faut : `set PATH=%PATH%;C:\Users\[username]\AppData\Local\Programs\Python\Python311` remplacer [username] par votre nom d'utilisateur sans crochet
+- **Poetry**
+  - Installer pipx `py -m pip install --user pipx`
+  - À chaque session de command line, il faut ajouter le path ainsi : `set PATH=%PATH%;C:\Users\[username]\AppData\Roaming\Python\Python311\Scripts`
+  - `pipx install poetry`
+  - À chaque session de command line, il faut ajouter le path ainsi : `set PATH=%PATH%;C:\Users\[username]\.local\bin`
+  - À chaque session de command line, il faut ajouter le path ainsi : `set PATH=%PATH%;C:\Users\[username]\.local\bin`
+- **Pyenv**
+  - À chaque session de command line, il faut ajouter le path ainsi : `set PATH=%PATH%;C:\Users\[username]\.pyenv\pyenv-win\bin`
+- **git**
+  - Comme pour Python, il faut installer git seulement pour son user
+  - À chaque session de command line, il faut ajouter le path ainsi : ` set PATH=%PATH%;C:\Users\beatrice.daniel\AppData\Local\Programs\Git\cmd`
 
 ## Contacts
 
